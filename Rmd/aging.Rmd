@@ -1,0 +1,96 @@
+## taacR 
+## Técnicas de Auditoria Assistidas por Computador com R
+
+### *Aging*
+
+</br>
+O *aging* é uma estratificação que se realiza em um conjunto de dados com base em um escalonamento do número de dias decorridos entre a data de ocorrência de determinado evento constante dos dados em exame e uma data de interesse, geralmente a data de encerramento do exercício (31/12/YYYY). O *aging* permite obter um perfil dos dados em análise.</br>
+
+Para ilustrar o procedimento, vamos usar o conjunto de dados `Arfile.ASC` que contém dados relativos ao contas a receber. Para termos uma idéia da estrutura do arquivo a ser importado, apresentamos a seguir os primeiros registros do mesmo.
+
+```
+S000030907702460020       13192.4220010101 
+S000004194300870003         260.9720010103 
+S000014319100870020        9541.2820010106 
+S000045970990450020        2254.1920010110 
+S000003018701390004        2286.8420010110 
+S000000262400280009        3993.9020010111 
+```
+</br>
+Este conjunto de dados contém os seguntes campos: Número da Conta, Código da Divisão, Código da Loja, Saldo ao término do exercício e Data de Vencimento.
+
+</br>
+Nosso objetivo será obter o perfil considerando o número de dias decorridos entre a Data de Vencimento e o encerramento do exercício, no caso 31/12/2001.  Primeiro apresentaremos o procedimento passo-a-passo e posteriormente com o uso da função `aging()` elaborada com o intuito de facilitar este procedimento.
+
+</br>
+Supondo que se queira estratificar os dados valores a receber até 30 dias do encerramento do exercício, 31 a 60 dias, 61 a 90 dias, 91 a 120 dias, 121 a 150 dias, 151 a 180 e faturas emitidas a mais de 180 dias, os passos a serem seguidos são os seguintes:
+
+</br>
+**Passo 1** - Importar a base de dados.  Os dados estão contidos em um arquivo de texto de formato fixo como pode ser visto no extrato acima. Para importar este tipo de dados será utilizada a função `read.fwf()`.
+
+```{r}
+setwd("C:\\Users\\Marcos\\Downloads")
+ctsRec <- read.fwf("Arfile.ASC",widths=c(11, 4, 4, 15, 8))
+head(ctsRec)
+sapply(ctsRec, class)
+```
+
+</br>
+**Passo 2** - Preparar a base de dados para análise.  Neste exemplo, colocar nomes nas colunas, converter os campos relativos ao código da Divisão (V2) e código da Loja (V3) para fatores  e converter o campo contendo data (V5) para o formato de data.
+
+```{r}
+names(ctsRec) <- c("Conta", "Divisao", "Loja", "Saldo", "DataVenc")
+ctsRec$Divisao <- as.factor(ctsRec$Divisao)
+ctsRec$Loja <- as.factor(ctsRec$Loja)
+ctsRec$DataVenc <- as.Date(as.character(ctsRec$DataVenc), "%Y%m%d")  
+head(ctsRec)
+sapply(ctsRec, class)
+```
+
+</br>
+**Passo 3** - Calcular o número de dias decorridos da data de vencimento da fatura até a data de encerramento do exercício. No caso em exame 31/12/2001.  Os comandos seguintes ilustram como isso pode ser feito.
+
+```{r}
+dias <- as.Date("2001-12-31") - ctsRec$DataVenc
+dias <- as.numeric(dias)
+```
+
+</br>
+**Passo 4** - Com base no número de dias calculados no passo anterior, classificar os registros da base de dados conforme o número dias calculado dentro do escalonamento definido pelo auditor.  No nosso exemplo, estaremos interessados em calssificar os registros nos seguintes intervalos: 0-30 dias, 31-60 dias, 61-90 dias, 91-120 dias, 121-150 dias, 151-180 dias, mais de 180 dias. Isto pode ser feito com a função `cut()`.
+
+```{r}
+aging <- cut(dias, breaks=c(0, 30, 60, 90, 120, 150, 180, max(dias)))
+```
+
+</br>
+**Passo 5** - Calcular o número de registros existentes em cada estrato, o valor total do faturamento em cada estrato e o faturamento médio em cada estrato.  Com os comandos a seguir realizamos esta etapa.
+
+```{r}
+perfil <- data.frame(QTDREG = tapply(ctsRec$Saldo, aging, length),
+                      TOTAL = tapply(ctsRec$Saldo, aging, sum),
+                      MEDIA = tapply(ctsRec$Saldo, aging, mean))
+
+```
+
+</br>
+Após esses passos, o aging desejado consta do objeto perfil, cujo conteúdo é o seguinte:</br>
+
+```{r}
+perfil
+```
+
+</br>
+Para melhorar um pouco mais esse aging serão criadas duas novas colunas para indicar os percentuais que cada classe representa do total.
+
+```{r}
+attach(perfil)
+perfil$QTDREG.PERCT <- round((QTDREG / sum(QTDREG)) * 100, digits=4)
+perfil$TOTAL.PERCT <- round((TOTAL / sum(TOTAL)) * 100, digits=4)
+detach(perfil)
+perfil
+```
+
+</br>
+Embora os passos mostrados acima não sejam difíceis de se executar, deve-se reconhecer que não é prático ter que executar todos esses comandos a cada vez que se deseje realizar um aging. Para contornar este inconveniente e facilitar a execução deste procedimento escrevi a função `aging()` que consta do pacote `taacR` cuja utilização é mostrada a seguir:</br>
+
+

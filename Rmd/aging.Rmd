@@ -1,12 +1,12 @@
 ## taacR 
 ## Técnicas de Auditoria Assistidas por Computador com R
 
-### *Aging*
+### Aging
 
 </br>
 O *aging* é uma estratificação que se realiza em um conjunto de dados com base em um escalonamento do número de dias decorridos entre a data de ocorrência de determinado evento constante dos dados em exame e uma data de interesse, geralmente a data de encerramento do exercício (31/12/YYYY). O *aging* permite obter um perfil dos dados em análise.</br>
 
-Para ilustrar o procedimento, vamos usar o conjunto de dados `Arfile.ASC` que contém dados relativos ao contas a receber. Para termos uma idéia da estrutura do arquivo a ser importado, apresentamos a seguir os primeiros registros do mesmo.
+Para ilustrar o procedimento, vamos usar o conjunto de dados `Arfile.txt` que contém dados relativos ao contas a receber. Para termos uma idéia da estrutura do arquivo a ser importado, apresentamos a seguir os primeiros registros do mesmo.
 
 ```
 S000030907702460020       13192.4220010101 
@@ -26,12 +26,19 @@ Nosso objetivo será obter o perfil considerando o número de dias decorridos entr
 Supondo que se queira estratificar os dados valores a receber até 30 dias do encerramento do exercício, 31 a 60 dias, 61 a 90 dias, 91 a 120 dias, 121 a 150 dias, 151 a 180 e faturas emitidas a mais de 180 dias, os passos a serem seguidos são os seguintes:
 
 </br>
-**Passo 1** - Importar a base de dados.  Os dados estão contidos em um arquivo de texto de formato fixo como pode ser visto no extrato acima. Para importar este tipo de dados será utilizada a função `read.fwf()`.
+**Passo 1** - Importar a base de dados.  Os dados estão contidos em um arquivo de texto de formato fixo como pode ser visto no extrato acima. Para importar arquivos neste formato, o R dispõe da função `read.fwf()`.
 
 ```{r}
-setwd("C:\\Users\\Marcos\\Downloads")
-ctsRec <- read.fwf("Arfile.ASC",widths=c(11, 4, 4, 15, 8))
+# Define o diretório onde está o arquivo
+setwd("C:\\Users\\Marcos\\Documents\\GitHub\\Usando-R\\dados")
+
+# Leitura do arquivo
+ctsRec <- read.fwf("Arfile.txt", widths=c(11, 4, 4, 15, 8))
+
+# Inspeciona a base de dados 
 head(ctsRec)
+
+# Verifica o tipo das variáveis
 sapply(ctsRec, class)
 ```
 
@@ -59,7 +66,8 @@ dias <- as.numeric(dias)
 **Passo 4** - Com base no número de dias calculados no passo anterior, classificar os registros da base de dados conforme o número dias calculado dentro do escalonamento definido pelo auditor.  No nosso exemplo, estaremos interessados em calssificar os registros nos seguintes intervalos: 0-30 dias, 31-60 dias, 61-90 dias, 91-120 dias, 121-150 dias, 151-180 dias, mais de 180 dias. Isto pode ser feito com a função `cut()`.
 
 ```{r}
-aging <- cut(dias, breaks=c(0, 30, 60, 90, 120, 150, 180, max(dias)))
+aging <- cut(dias, breaks=c(0, 30, 60, 90, 120, 150, 180, Inf),
+                   labels=c("0-30", "31-60", "61-90", "91-120", "121-150", "151-180", "> 180"))
 ```
 
 </br>
@@ -73,7 +81,7 @@ perfil <- data.frame(QTDREG = tapply(ctsRec$Saldo, aging, length),
 ```
 
 </br>
-Após esses passos, o aging desejado consta do objeto perfil, cujo conteúdo é o seguinte:</br>
+Após esses passos, o aging desejado consta do objeto `perfil`, cujo conteúdo é o seguinte:
 
 ```{r}
 perfil
@@ -83,14 +91,7 @@ perfil
 Para melhorar um pouco mais esse aging serão criadas duas novas colunas para indicar os percentuais que cada classe representa do total.
 
 ```{r}
-attach(perfil)
-perfil$QTDREG.PERCT <- round((QTDREG / sum(QTDREG)) * 100, digits=4)
-perfil$TOTAL.PERCT <- round((TOTAL / sum(TOTAL)) * 100, digits=4)
-detach(perfil)
+perfil <- transform(perfil, QTDREG.PERCT = round(QTDREG / sum(QTDREG) * 100, digits=4))
+perfil <- transform(perfil, TOTAL.PERCT  = round(TOTAL / sum(TOTAL) * 100, digits=4))
 perfil
 ```
-
-</br>
-Embora os passos mostrados acima não sejam difíceis de se executar, deve-se reconhecer que não é prático ter que executar todos esses comandos a cada vez que se deseje realizar um aging. Para contornar este inconveniente e facilitar a execução deste procedimento escrevi a função `aging()` que consta do pacote `taacR` cuja utilização é mostrada a seguir:</br>
-
-

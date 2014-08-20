@@ -1,0 +1,71 @@
+A criação de novos campos a partir de campos já existentes no conjunto de dados é uma tarefa extremamente simples.   Vamos ilustrar este procedimento utilizando o operador $ e a função transform().
+
+Usaremos o conjunto de dados Hood.txt para ilustrar a criação de novos campos.
+
+> hood <- read.table(file.choose(), header=T, dec=",")
+> head(hood)
+  Codigo Quant PUnit Valor
+1  10001    13   250  3250
+2  10002    12   275  3300
+3  10003    15   270  4050
+4  10004    11   200  2200
+5  10005    10   400  4000
+6  10006    10   410  4100
+
+Vamos criar um novo campo na base de dados hood chamado VlrAudit que será o produto dos campos Quant e PUnit. Isso pode ser feito da seguinte forma:
+
+> hood$VlrAudit <- hood$Quant * hood$PUnit
+> head(hood)
+  Codigo Quant PUnit Valor VlrAudit
+1  10001    13   250  3250     3250
+2  10002    12   275  3300     3300
+3  10003    15   270  4050     4050
+4  10004    11   200  2200     2200
+5  10005    10   400  4000     4000
+6  10006    10   410  4100     4100
+
+Agora vamos criar mais um campo que chamaremos de dif  e que será a diferença entre os campos Valor e VlrAudit. Agora usaremos a função transform().
+
+> hood <- transform(hood, dif = Valor - VlrAudit)
+> head(hood)
+  Codigo Quant PUnit Valor VlrAudit dif
+1  10001    13   250  3250     3250   0
+2  10002    12   275  3300     3300   0
+3  10003    15   270  4050     4050   0
+4  10004    11   200  2200     2200   0
+5  10005    10   400  4000     4000   0
+6  10006    10   410  4100     4100   0
+
+Agora vamos criar um novo campo chamado VlrAcum contendo o valor acumulado do campo Valor.
+
+> hood <- transform(hood, VlrAcum = cumsum(Valor))
+> head(hood)
+  Codigo Quant PUnit Valor VlrAudit dif VlrAcum
+1  10001    13   250  3250     3250   0    3250
+2  10002    12   275  3300     3300   0    6550
+3  10003    15   270  4050     4050   0   10600
+4  10004    11   200  2200     2200   0   12800
+5  10005    10   400  4000     4000   0   16800
+6  10006    10   410  4100     4100   0   20900
+
+Para eliminiar colunas em um data frame, temos as seguintes possibilidades::
+
+> hood$dif <- NULL # Elimina a coluna 'dif'
+> head(hood)
+  Codigo Quant PUnit Valor VlrAudit VlrAcum
+1  10001    13   250  3250     3250    3250
+2  10002    12   275  3300     3300    6550
+3  10003    15   270  4050     4050   10600
+4  10004    11   200  2200     2200   12800
+5  10005    10   400  4000     4000   16800
+6  10006    10   410  4100     4100   20900
+
+> hood <- hood[,-c(5,6)] # Excluir as colunas 5 e 6 do data frame
+> head(hood)
+  Codigo Quant PUnit Valor
+1  10001    13   250  3250
+2  10002    12   275  3300
+3  10003    15   270  4050
+4  10004    11   200  2200
+5  10005    10   400  4000
+6  10006    10   410  4100

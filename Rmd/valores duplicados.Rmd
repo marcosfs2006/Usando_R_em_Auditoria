@@ -1,0 +1,45 @@
+A identificação de valores duplicados é uma tarefa usualmente executada pelos auditores com o objetivo de identificar repetições indevidas de valores em determinados campos em uma base de dados.
+
+Para a execução deste procedimento, o R dispõe da função duplicated() que identifica os índices dos valores que são repetições de valores anteriores existentes no campo.
+
+
+Vamos ilustrar este procedimento utilizando o conjunto de dados Invoices.csv, objetivando encontrar numeros de faturas repetidas na base de dados.
+
+> faturamento <- read.csv2("Invoices.csv")
+
+> faturamento[duplicated(faturamento$InvoiceNo),]
+
+         Date InvoiceNo CustomerNo SalesPerson ProductNo UnitPrice Quantity
+12 14/01/2003     20010      10439          99        38      7.45       28
+   Amount
+12  208.6
+
+
+A saída acima indica que a fatura de número 20010 é repetida. Para identificarmos a fatura "original" podemos utilizar a função subset() conforme evidenciado a seguir:
+
+> subset(faturamento, InvoiceNo == 20010)
+         Date InvoiceNo CustomerNo SalesPerson ProductNo UnitPrice Quantity
+11 14/01/2003     20010      10439          19        38      7.45       28
+12 14/01/2003     20010      10439          99        38      7.45       28
+   Amount
+11  208.6
+12  208.6
+
+Um procedimento mais geral para selecionarmos na base de dados de uma só vez tanto os valores "originais" quanto as repetições será apresentado a seguir:
+
+# Identifica os valores repetidos
+> repetidos <- faturamento$InvoiceNo[duplicated(faturamento$InvoiceNo)]
+
+> repetidos
+[1] 20010
+
+# Seleciona da base de dados os valores originais e os repetidos
+> subset(faturamento, InvoiceNo %in% repetidos)
+         Date InvoiceNo CustomerNo SalesPerson ProductNo UnitPrice Quantity
+11 14/01/2003     20010      10439          19        38      7.45       28
+12 14/01/2003     20010      10439          99        38      7.45       28
+   Amount
+11  208.6
+12  208.6
+
+Neste exemplo existe apenas um valor repetido, mas caso houvesse mais, todos seriam listados.  

@@ -1,0 +1,48 @@
+Ao examinar um conjunto de dados, é frequente a situação em que o auditor tem  interesse em selecionar para exame apenas um subconjunto do mesmo, ou seja, selecionar os registros que atendam a determinados critérios definidos pelo auditor. 
+
+Assim o auditor pode desejar selecionar os registros onde o valor das faturas, por exemplo, sejam superiores a determinado valor para análise, ou faturas emitidas em um determinado período.
+
+Para a aplicação de filtros aos dados, o R dispõe da função subset(). Também pode-se usar o sistema de indexação do R. 
+
+Para ilustrar o uso de filtros usarei o conjunto de dados Invoices.csv.
+
+> faturas <- read.csv2(file.choose(), as.is=TRUE)
+
+O campo "Date" deve ser convertido para o formato de data, o que pode ser feito com o comandoas.Date()conforme mostrado a seguir:
+
+> faturas$Date <- as.Date(faturas$Date, "%d/%m/%Y")
+
+Caso seja necessário selecionar para exame apenas as faturas de maiores valores, deve-se conhecer a distribuição destes valores.  A funçãoquantile()pode ser usada para fornecer um perfil dos dados. O exemplo a seguir ilustra como fazer isso.
+
+> quantile(faturas$Amount, probs=seq(0, 1, 0.1))
+     0%     10%     20%     30%     40%     50%     60%     70%     80%     90% 
+    5.0    93.0   180.0   265.4   352.5   450.0   573.7   722.0   986.0  1548.0 
+   100% 
+13438.5
+
+> quantile(faturas$Amount, probs=0.99)
+    99% 
+7383.27 
+
+> grandesValores <- subset(faturas, Amount >= 7383.27)
+
+> dim(grandesValores) # Foram selecionados 50 registros
+[1] 50  8
+
+Suponha que haja interesse em selecionar as faturas das vendas efetuadas por um vendedor em particular. O campoSalesPersoncontém o código do vendedor que efetuou a venda.  Para relacionar os vendedores pode-se fazer:  
+
+> levels(as.factor(faturas$SalesPerson))
+ [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12" "13" "14" "15"
+[16] "16" "17" "18" "19" "20" "21" "22" "23" "24" "25" "26" "99"
+
+Vamos selecionar as faturas emitidas pelo vendedor 18.
+
+> vendedor18 <- subset(faturas, SalesPerson == 18, select=c("Date", "InvoiceNo"))
+> head(vendedor18)
+          Date InvoiceNo
+35  2003-05-21     20035
+74  2003-03-02     20074
+82  2003-12-08     20082
+85  2003-07-27     20085
+86  2003-12-27     20086
+114 2003-03-18     20114

@@ -1,0 +1,83 @@
+Diversos documentos são emitidos seguindo uma numeração sequencial, o que permite um maior controle sobre os mesmos.  Exemplos disso são a numeração sequencial das notas fiscais emitidas por uma empresa, dos cheques emitidos, das notas de empenhos, dos contratos celebrados, etc.
+
+Um recurso muito útil e usualmente disponível nos softwares de auditoria de uso geral é a possibilidade de idenficar a existência de itens faltantes em um conjunto de dados, ou seja, verificar se existe algum gap (lacuna) na numeração seqüencial. 
+
+Vamos ilustrar como fazer isso usando o conjunto de dados Invoices.csv.
+
+A abordagem utilizada será descrita a seguir:
+
+O vetor contendo os dados da numerção sequencial será ordenado, e cada elemento será subtraído do seu antecessor. Se não houver falha na numeração sequencial, espera-se obter como resultado um vetor contendo apenas 1.  Onde o resultado for diferente de 1 haverá uma falha.  Vejamos como fazer isso na prática.
+
+1 - Ordenação do conjunto de dados com base  no número das faturas
+> faturas <- faturas[order(faturas$InvoiceNo),]
+
+2 - Cálculo das diferenças
+> diferencas <- diff(faturas$InvoiceNo)
+
+3 - Identificação dos registros onde há gaps
+
+> which(diferencas != 1)
+[1] 11 12 23
+
+O resultado acima mostra que há problema entre os itens 11 e 12, 12 e 13 e entre os itens 23 e 24.
+
+Agora é só inspecionar estes itens:
+
+> faturas2[c(11,12),]
+         Date InvoiceNo CustomerNo SalesPerson ProductNo UnitPrice Quantity
+11 2003-01-14     20010      10439          19        38      7.45       28
+12 2003-01-14     20010      10439          99        38      7.45       28
+   Amount
+11  208.6
+12  208.6
+
+> faturas2[c(12,13),]
+         Date InvoiceNo CustomerNo SalesPerson ProductNo UnitPrice Quantity
+12 2003-01-14     20010      10439          99        38      7.45       28
+13 2003-08-29     20012      10919          11        31     21.05       28
+   Amount
+12  208.6
+13  589.4
+
+> faturas2[c(23,24),]
+         Date InvoiceNo CustomerNo SalesPerson ProductNo UnitPrice Quantity
+23 2003-11-29     20022      10355          15        12        46       12
+24 2003-01-17     20024      10459          24        61        31       42
+   Amount
+23    552
+24   1302
+
+Para simplificar o procedimento, pode-se utilizar a função gap() que escrevi para simplificar este processo.  Seu uso é exemplificado a seguir:
+
+> gap(faturas$InvoiceNo)
+Gap 1 : 11 - 12
+Gap 2 : 12 - 13 
+Gap 3 : 23 - 24
+
+
+
+SIAFEM
+
+No Estado do Rio de Janeiro, a contabilidade é processada no SIAFEM (Sistema de Administração Financeira para Estados e Municípios).  Neste sistema, a numeração dos documentos que geram os lançamentos contábeis seguem uma codificação contendo o ano do lançamento, o tipo de documento contábil e a numeração sequencial propriamente dita. 
+
+Assim, a numeração das notas de empenho  emitidas no ano de 2005, por uma determinada Unidade Gestora seria: 2005NE00001, 2005NE00002, 2005NE00003, ...
+
+
+Para utilizarmos o procedimento acima descrito em dados desse tipo, é necessário remover a numeração sequencial (quatro últimos caracteres) do código, o que pode ser feito utilizando-se a função substr().  Vejamos como utilizá-la.
+
+> NE <- c("2005NE00001", "2005NE00002", "2005NE00003", "2005NE00004", "2005NE00005", "2005NE00006", "2005NE00007", "2005NE00008", "2005NE00009", "2005NE00010")
+
+> NE
+ [1] "2005NE00001" "2005NE00002" "2005NE00003" "2005NE00004" "2005NE00005"
+ [6] "2005NE00006" "2005NE00007" "2005NE00008" "2005NE00009" "2005NE00010"
+
+> NE <- substr(NE, 7, 11)
+
+> NE
+ [1] "00001" "00002" "00003" "00004" "00005" "00006" "00007" "00008" "00009"
+[10] "00010"
+
+> NE <- as.numeric(NE)
+
+> NE
+ [1]  1  2  3  4  5  6  7  8  9 10

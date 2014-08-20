@@ -1,0 +1,168 @@
+A tabulação cruzada consiste normalmente em se determinar a distribuição de freqüências de uma, duas ou mais variáveis categóricas. O R dispõe das funções table() e xtabs() que nos permitem implementar esta técnica.
+
+Utilizando o conjunto de dados Customers.csv que contém informações sobre os clientes de uma empresa, suponha que desejamos saber quantos clientes a empresa possui em cada Estado. Os comandos a seguir nos permitem obter esta informação:
+
+# Importação da base de dados
+> clientes <- read.csv2("Customers.csv")
+
+# Inspeção do conteúdo do arquivo
+> str(clientes)
+'data.frame':   1000 obs. of  5 variables:
+ $ CustomerNo : int  10000 10001 10002 10003 10004 10005 10006 10007 10009 ...
+ $ ContactName: Factor w/ 807 levels "Abbigail Reilly ",..: 463 465 70 311 ...
+ $ Address    : Factor w/ 787 levels "1004 Hawthorne Lane",..: 352 332 300 ...
+ $ City       : Factor w/ 376 levels "Abbotsford","Acton",..: 352 204 115 ...
+ $ State      : Factor w/ 13 levels "AB","BC","MB",..: 6 9 3 12 8 13 12 1 12 ...
+
+# Calculo da tabulação
+> table(clientes$State)
+ AB  BC  MB  NB  NL  NS  NT  NU  ON  PE  QC  SK  YT 
+ 74  78  93  74  70 106  78  74  74  70  78  57  74
+
+O mesmo resultado poderia ser obtido com a função xtabs(), da seguinte forma:
+> xtabs(~ State, data=clientes)
+State
+ AB  BC  MB  NB  NL  NS  NT  NU  ON  PE  QC  SK  YT 
+ 74  78  93  74  70 106  78  74  74  70  78  57  74
+
+Vejamos agora como calcular a quantidade de clientes por cidade em cada um dos estados. Como a quantidade de cidades é bem grande, e para economizar espaço, apresentarei apenas os registros iniciais do resultado.
+
+> table(clientes$City, clientes$Sate)
+
+                               AB BC MB NB NL NS NT NU ON PE QC SK YT
+  Abbotsford                    0  1  0  1  0  0  0  0  0  1  0  1  0
+  Acton                         0  0  1  0  0  0  0  0  0  0  0  1  0
+  Ainsworth Hot Springs         0  0  0  0  0  1  0  0  0  1  0  0  0
+  Airdrie                       0  0  0  0  0  0  0  0  1  0  0  0  0
+  Ajax                          0  0  2  0  0  2  0  0  1  0  0  0  1
+  Albany                        0  0  0  0  0  0  1  0  0  0  0  0  0
+  Alberta Beach                 2  0  0  0  0  0  0  0  0  0  0  0  0
+  Alberton                      0  0  1  0  0  1  0  0  0  0  0  0  0
+  Aldergrove                    0  0  1  0  0  0  0  0  0  0  0  0  0
+  Alderville                    0  0  0  0  0  0  0  0  1  0  0  0  0
+  Alert Bay                     0  0  0  0  0  2  0  0  0  0  0  0  0
+  Alfred                        0  1  0  0  0  0  1  0  1  0  0  0  0
+  (...)
+
+Conquanto as informações obtidas acima sejam úteis, seria muito interessante saber o quanto a empresa fatura em cada um dos estados.
+
+Para obtermos esta informação, será necessário combinar as informações contidas no arquivo Customers.csv com as informaçãoes contidas no arquivo Invoices.csv que traz informações sobre o faturamento da empresa. Os comandos a seguir nos permitem obter esta informação:
+
+> faturamento <- read.csv2("Invoices.csv")
+
+> str(faturamento)
+'data.frame':   4999 obs. of  8 variables:
+ $ Date       : Factor w/ 365 levels "01/01/2003","01/02/2003",..: 103 248 320 ...
+ $ InvoiceNo  : int  20000 20001 20002 20003 20004 20005 20006 20007 20008 ...
+ $ CustomerNo : int  10220 10491 10704 10430 10841 10777 10653 10413 10654 ...
+ $ SalesPerson: int  8 4 3 5 17 1 19 12 12 1 ...
+ $ ProductNo  : int  8 48 43 54 11 5 58 61 4 10 ...
+ $ UnitPrice  : num  9.2 14 15 24 15 12.5 24 31 34.8 49.3 ...
+ $ Quantity   : int  41 30 25 22 21 50 2 51 21 5 ...
+ $ Amount     : num  377 420 375 528 315 ...
+
+
+Agora será criado um novo data frame reunindo informações das duas bases de dados. Esta reunião de informações é feita utilizando-se a função merge().
+
+> novo <- merge(clientes, faturamento, all=TRUE)
+> str(novo)
+'data.frame':   5008 obs. of  12 variables:
+ $ CustomerNo : int  10000 10000 10000 10000 10001 10001 10001 10001 10001 ...
+ $ ContactName: Factor w/ 807 levels "Abbigail Reilly ",..: 463 463 463 463 465 ...
+ $ Address    : Factor w/ 787 levels "1004 Hawthorne Lane",..: 352 352 352 352 ...
+ $ City       : Factor w/ 376 levels "Abbotsford","Acton",..: 352 352 352 352 ...
+ $ State      : Factor w/ 13 levels "AB","BC","MB",..: 6 6 6 6 9 9 9 9 9 3 ...
+ $ Date       : Factor w/ 365 levels "01/01/2003","01/02/2003",..: 262 90 330 ...
+ $ InvoiceNo  : int  23663 21369 21893 21966 22112 20231 22956 20207 23845 ...
+ $ SalesPerson: int  12 1 26 23 12 5 6 6 16 12 ...
+ $ ProductNo  : int  9 43 10 57 71 42 18 20 42 44 ...
+ $ UnitPrice  : num  25.9 15.0 49.3 19.0 53.0 ...
+ $ Quantity   : int  25 45 15 41 25 11 12 32 41 33 ...
+ $ Amount     : num   647  675  740  779 1325 ...
+
+> options(digits=10)
+> xtabs(Amount ~ State, data=novo)
+State
+       AB        BC        MB        NB        NL        NS        NT        NU 
+313577.39 261470.85 332755.96 281333.21 206638.16 488182.23 362589.39 271564.35 
+       ON        PE        QC        SK        YT 
+253659.92 290694.24 291882.84 214679.19 355711.51
+
+A função xtabs() somou os valores da coluna Amount para cada um dos estados.
+
+Suponha agora, que o auditor esteja interessado em ter a informação acima por mês, ou seja, o quanto a empresa faturou em cada mês, por estado. Para fazer isso, deve-se proceder da seguinte forma:
+
+# Conterter a coluna Date do data frame novo (combinação dos arquivos clientes e #faturamento) para o formato "Date" do R.
+> novo$Date <- as.Date(novo$Date, "%d/%m/%Y")
+
+# Criar uma nova coluna contendo os meses...
+> novo$mes <- format(novo$Date, "%b")
+
+> xtabs(Amount ~  mes + State, data=novo)
+
+     State
+mes         AB       BC       MB       NB       NL       NS       NT       NU
+  abr 37056.15 17334.21 37476.82 22939.50 32344.49 36644.49 12428.30 15327.18
+  ago 23870.83 28571.26 33207.37 14484.13 14505.13 40719.61 34900.87 18257.49
+  dez 24130.70 29170.70 33091.25 25057.11 19303.97 35172.69 39084.20 25466.51
+  fev 14955.30 16947.20 17755.68 26058.37 13473.40 36673.40 19218.25 14446.47
+  jan 32268.78 21495.54 19046.70 21038.51 13795.05 37208.16 39384.01 26285.23
+  jul 23561.06 23718.28 45241.20 39438.72 16653.57 45200.84 49967.05 26150.54
+  jun 28525.97 23224.70 20902.83 17690.69 15085.60 66825.70 47105.19 26734.75
+  mai 17967.05 13882.25 40048.08 20348.92 29388.50 50828.15 28893.57 24101.05
+  mar 30260.77 24224.61 25899.70 17932.91 17569.50 26042.29 18065.50 19305.80
+  nov 15955.46 20933.25 14925.60 24065.31 10576.44 58269.19 22917.95 31825.68
+  out 33243.85 23978.25 24909.40 36764.49 10604.05 34817.05 19829.83 21791.85
+  set 31781.47 17990.60 20251.33 15514.55 13338.46 19780.66 30794.67 21871.80
+     State
+mes         ON       PE       QC       SK       YT
+  abr 19911.95 13689.01 29029.95 16111.37 28948.03
+  ago 28651.53 19700.20 20895.46 19742.49 28218.55
+  dez 13850.15 22709.32 33149.61 12323.75 50128.91
+  fev 39009.18 51646.98 25513.08 20550.39 23459.75
+  jan 13009.67 11330.98 28040.86 14383.70 35321.40
+  jul 26325.84 23307.30 17906.98 27566.60 26869.18
+  jun 22242.45 24770.15 19593.84  6941.20 19888.23
+  mai 11155.30 39279.19 21412.31 34867.65 30966.69
+  mar 17643.65 15614.26 23525.15 13259.35 24950.29
+  nov 26462.10 19444.70 23485.65 12513.08 33669.95
+  out 14525.28 21207.84 22893.35 20687.26 22829.49
+  set 20872.82 27994.31 26436.60 15732.35 30461.04
+
+Da forma como está, há o inconveniente dos meses não estarem ordenados. Este problema pode ser resolvido utilizando-se a função ordered() da seguinte forma:
+
+> novo$mes <- ordered(novo$mes, levels=c("jan", "fev", "mar", "abr", "mai", "jun",
+                                         "jul", "ago", "set", "out", "nov", "dez"))
+
+> xtabs(Amount ~  mes + State, data=novo) # Ordenar os meses...
+
+     State
+mes         AB       BC       MB       NB       NL       NS       NT       NU
+  jan 32268.78 21495.54 19046.70 21038.51 13795.05 37208.16 39384.01 26285.23
+  fev 14955.30 16947.20 17755.68 26058.37 13473.40 36673.40 19218.25 14446.47
+  mar 30260.77 24224.61 25899.70 17932.91 17569.50 26042.29 18065.50 19305.80
+  abr 37056.15 17334.21 37476.82 22939.50 32344.49 36644.49 12428.30 15327.18
+  mai 17967.05 13882.25 40048.08 20348.92 29388.50 50828.15 28893.57 24101.05
+  jun 28525.97 23224.70 20902.83 17690.69 15085.60 66825.70 47105.19 26734.75
+  jul 23561.06 23718.28 45241.20 39438.72 16653.57 45200.84 49967.05 26150.54
+  ago 23870.83 28571.26 33207.37 14484.13 14505.13 40719.61 34900.87 18257.49
+  set 31781.47 17990.60 20251.33 15514.55 13338.46 19780.66 30794.67 21871.80
+  out 33243.85 23978.25 24909.40 36764.49 10604.05 34817.05 19829.83 21791.85
+  nov 15955.46 20933.25 14925.60 24065.31 10576.44 58269.19 22917.95 31825.68
+  dez 24130.70 29170.70 33091.25 25057.11 19303.97 35172.69 39084.20 25466.51
+     State
+mes         ON       PE       QC       SK       YT
+  jan 13009.67 11330.98 28040.86 14383.70 35321.40
+  fev 39009.18 51646.98 25513.08 20550.39 23459.75
+  mar 17643.65 15614.26 23525.15 13259.35 24950.29
+  abr 19911.95 13689.01 29029.95 16111.37 28948.03
+  mai 11155.30 39279.19 21412.31 34867.65 30966.69
+  jun 22242.45 24770.15 19593.84  6941.20 19888.23
+  jul 26325.84 23307.30 17906.98 27566.60 26869.18
+  ago 28651.53 19700.20 20895.46 19742.49 28218.55
+  set 20872.82 27994.31 26436.60 15732.35 30461.04
+  out 14525.28 21207.84 22893.35 20687.26 22829.49
+  nov 26462.10 19444.70 23485.65 12513.08 33669.95
+  dez 13850.15 22709.32 33149.61 12323.75 50128.91
+
+Bem, agora está bem melhor...

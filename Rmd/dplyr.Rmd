@@ -1,0 +1,253 @@
+---
+title: "dplyr"
+author: "Marcos Ferreira da Silva"
+date: '`r format(Sys.Date(), "%d/%m/%Y")`'
+output: 
+  html_document:
+    toc: true 
+    toc_float: true
+    toc_depth: 3  
+    number_sections: true  
+    theme: united  
+    highlight: tango  
+---
+
+# Introdução ao pacote `dplyr`
+
+</br>  
+
+Neste tutorial faremos uma breve apresentação das funcionalidades do pacote `dplyr`. Este pacote traz diversos recursos que facilitam bastante a análise dos dados. Ajuda para este pacote pode ser obtida em <https://dplyr.tidyverse.org/>.
+
+Vamos utilizar o conjunto de dados `rh_limpo.RData` para ilustrar o uso de alguns recursos do pacote.  
+
+
+Os comandos a seguir carregam a base de dados:
+
+```{r}
+suppressMessages(library(dplyr))
+setwd('C:\\Users\\Marcos\\Dropbox\\1. Cursos ECG\\Intro-R\\3.dados')
+load('rh_limpo.RData')
+```
+
+A conversão do data frame `rh` para `tibble` e apresentação de um resumo do conjunto de dados é feita com os comandos a seguir:
+
+```{r}
+rh <- as.tbl(rh)
+glimpse(rh) # similar à str()
+
+```
+
+
+</br>
+
+## Principais funções
+
+O pacote `dplyr` possui 5 funções principais: `filter()`, `arrange()`, `select()`, `mutate()` e `summarise()`. Vamos, a seguir, ilustrar o uso de cada uma delas.  
+
+</br>
+
+### filter()
+
+Esta função é utilizada para filtrar um conjunto de dados. Tem funcionalidade semelhante à da função `subset()` do r básico^[Chamaremos de r básico às funções disponíveis na instalação básica do R].
+
+Suponha que se deseja aplicar um filtro ao conjunto de dados de forma a se obter apenas os registros relativos às pessoas do sexo masculino com 17 ou mais anos de estudo:
+
+```{r}
+rh2 <- filter(rh, Anos.de.estudo >= 17, Sexo == "Masculino")
+```
+
+A seleção de linhas a partir das posições das mesmas pode ser feita com a função `slice()`. 
+
+```{r}
+head(rh2)
+slice(rh2, c(1, 3, 5)) # linhas 1, 3 e 5
+slice(rh2, n())        # último registro...
+```
+
+A seleção de valores distintos é feita com a função `distinct()`. Esta função é semelhante à função `unique()`.
+
+```{r}
+rh3 <- distinct(rh, Sexo, Unidade)
+rh3
+```
+
+A seleção de amostras pode ser feita com as funções `sample_n()` e `sample_f()`.
+
+</br>
+
+### arrange()
+
+Esta função é utilizada para ordenar um conjunto de dados. Tem funcionalidade semelhande à da função `order()`.
+
+No exemplo a seguir, faz-se a ordenação do conjunto de dados pelos valores crescentes de salário e decrescente de tempo de empresa.
+
+```{r}
+rh4 <- arrange(rh, Salário, desc(Tempo.de.empresa))
+head(rh4)
+```
+
+A função `desc()` faz a ordenação de forma descendente.
+
+</br>
+
+### select()
+
+Esta função é utilizada para selecionar colunas de um data frame. Para selecionar colunas que comecem com `s` e terminem com `o`:
+
+```{r}
+rh5 <- select(rh, starts_with('s'), ends_with('o'))
+head(rh5)
+```
+
+Como argumentos de `select()` pode-se utilizar as seguintes funções:
+
+* `starts_with(x, ignore case = TRUE)` - seleciona variáveis cujos nomes comecem com `x`
+* `ends_with(x, ignore case = TRUE)` - seleciona variáveis cujos nomes terminem em `x`
+* `contains(x, ignore case = TRUE)` - seleciona variáveis cujos nomes contenham `x`
+* `matches(x, ignore case = TRUE)` -  seleciona todas as variáveis cujos nomes casem com a expressão regular `x`
+* `num_range("x", 1:5, width = 2)` - seleciona todas as variáveis (numericamente) de `x01` a `x05`
+* `one_of("x", "y", "z")` - seleciona as varíaveis fornecidas em um vetor de caracteres
+* `everything()` - seleciona todas as variáveis
+
+Para descartar variáveis use `-`
+Pode-se renomear as variáveis com a função `rename()`
+Pode-se selecionar as variáveis entre `v1` e `v2` com `v1:v2`
+
+```{r}
+rh6 <- select(rh, -(Sexo:Formação))
+head(rh6)
+
+rh6 <- rename(rh6, Tempo_Empresa = Tempo.de.empresa,
+                   Salario_Mensal = Salário)
+
+```
+
+</br>
+
+### mutate()
+
+Função para criar novas variáveis. Tem funcionalidade semelhante à função `transform()`. com a vantagem de que variáveis criadas dentro da função podem ser utilizadas para a criação de outras variáveis. 
+
+```{r}
+rh7 <- mutate(rh,   SalTot = Salário + Bônus,
+                    SalLiq = SalTot * 0.7,
+                    Salário = NULL,
+                    Bônus = NULL)
+
+head(rh7)
+```
+
+Caso se deseje reter apenas as variáveis criadas, utiliza-se a função `transmute()` em vez de `mutate()`.
+ 
+</br>
+
+### summarise()
+
+Função utilizada para sumarizar um conjunto de dados. Utilizada sozinha, tem funcionalidade semelhante à da função `apply()` aplicada às colunas de um `data frame`.
+
+
+```{r}
+rh8 <- summarise(rh, Media_AnosEstudo = mean(Anos.de.estudo, na.rm=TRUE),
+                     Media_Salario    = mean(Salário, na.rm=TRUE),
+                     Media_Bônus      = mean(Bônus, na.rm=TRUE))
+
+rh8
+```
+
+Quando utilizada em conjunto com a função `group_by()` tem funcionalidade semelhante à da função `aggregate()`.
+
+```{r}
+rh9 <- summarise(group_by(rh, Sexo, Estado.Civil),
+                QtdPessoas = n(),
+                MediaRemun = mean(Salário, na.rm=TRUE),
+                RemunMin   = min(Salário, na.rm=TRUE),
+                RemunMax   = max(Salário, na.rm=TRUE),
+                IQRRemun   = IQR(Salário, na.rm=TRUE))
+
+head(rh9)
+```
+
+As seguintes funções podem ser utilizadas em conjunto com `summarise()` para gerar novas aggregações:
+
+* `n()` -   quantidade de elementos
+* `n_distinct()` - quantidade de elementos distintos 
+* `first()` - retorna o primeiro elemento
+* `last()` -  retorna o último elemento
+* `nth(x, n)` - retrona o n-ésimo elemento  
+
+</br>
+
+## Encadeamento com o operador `%>%` ( *pipe* )
+
+O operador `%>%` ( *pipe* ) permite realizar o encadeamento de diversas funções. Um exemplo irá ilustrar o uso deste operador.
+
+```{r}
+rh10 <- rh %>%
+      mutate(Salario_Total = Salário + Bônus) %>% 
+      group_by(Sexo, Estado.Civil) %>%
+      summarise(Qtd_Pessoas  = n(),
+                Salario_medio = mean(Salário, na.rm=TRUE),
+                Bonus_medio   = mean(Bônus,   na.rm=TRUE),
+                Salario_Total_medio = mean(Salario_Total, na.rm=TRUE)) %>%
+      mutate(Remun_Total_Medio = Salario_medio + Bonus_medio) 
+
+
+rh10
+```
+
+
+</br>
+
+## Merging 
+
+O pacote `dplyr` dispõe também de um conjunto de funções que possibilitam realizar o *merging* de dois data frames, de forma semelhante à função `merge()`. Estas funções são: 
+
+* `inner_join()`    
+* `left_join()`   
+* `right_join()`   
+* `full_join()`   
+* `semi_join()`   
+* `anti_join()`   
+
+Exemplos:
+
+```{r}
+Pdiv <- data.frame(Time=c("Flamengo", "Vasco", "Fluminense"),
+                   Torcida=c(100, 50, 60), stringsAsFactors = FALSE)
+
+Sdiv <- data.frame(Time=c("Vasco", "Fluminense", "Bangu"),
+                   QtdTit = c(22, 33, 40),stringsAsFactors = FALSE)
+
+Tdiv <- data.frame(Clubes = c("Vasco", "Bangu", "Olaria"),
+                   Derrotas = c(30, 15, 14), stringsAsFactors = FALSE)
+```
+
+```{r}
+inner_join(Pdiv, Sdiv, by='Time')
+```
+
+```{r}
+left_join(Pdiv, Sdiv, by='Time')
+```
+
+```{r}
+right_join(Pdiv, Tdiv, by=c('Time' = 'Clubes'))
+```
+
+```{r}
+full_join(Pdiv, Tdiv, by=c('Time' = 'Clubes'))
+```
+
+```{r, echo=FALSE, eval=FALSE}
+semi_join()
+```
+
+```{r, echo=FALSE, eval=FALSE}
+anti_join()
+```
+
+Para mais informações, consultar a ajuda das funções.
+
+</br>
+
+

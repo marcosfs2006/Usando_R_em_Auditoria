@@ -1,0 +1,650 @@
+
+                                  Bright IDEAs Inc
+                              Customer Master Listing
+
+_______________________________________________________________________________________________________
+
+
+     Account Number    Name                              Address                          Credit Limit
+     ______________    __________________________        ____________________             ____________
+
+     A001              Dan Ackroyd                       Audenshaw                               20000
+                                                         125 New Street
+                                                         Montreal
+                                                         Quebec
+                                                         H2S 3H2
+
+     A123              Mike Atsil                        The Vetinary House                      20000
+                                                         123 Dog Row
+                                                         Thunder Bay
+                                                         Ontario
+                                                         K3A 7G1
+
+     A128              Ivan Aker                         The Old House                           10000
+                                                         Ottawa
+                                                         Ontario
+                                                         P1D 8D4
+
+     B001              Kim Basinger                      Mesh House                              12000
+                                                         Fish Street
+                                                         Rouyn
+                                                         Quebec
+                                                         J5V 2A9
+
+     B002              Richard Burton                    Eagle Castle                             9000
+                                                         Leafy Lane
+                                                         Sudbury
+                                                         Ontario
+                                                         L3M 9S3
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     B004              Jeff Bridges                      Arrow Road North                        20000
+                                                         Lakeside
+                                                         Kenora
+                                                         Ontario
+                                                         N3R 2S1
+
+     B008              Denise Bent                       The Dance Studio                        20000
+                                                         Covent Garden
+                                                         Montreal
+                                                         Quebec
+                                                         H5S 3H2
+
+     B010              Carter Bout                       Removals Close                          20000
+                                                         No Fixed Abode Road
+                                                         Toronto
+                                                         Ontario
+                                                         M2A 7D3
+
+     B022              Ronnie Biggs                      Gotaway Cottage                          5000
+                                                         Thunder Bay
+                                                         Ontario
+                                                         K3A 6F3
+
+     C001              Tom Cruise                        The Firm                                25000
+                                                         Gunnersbury
+                                                         Waskaganish
+                                                         Quebec
+                                                         G1A 6H5
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     C003              John Candy                        The Sweet Shop                          15000
+                                                         High Street
+                                                         Trois Rivieres
+                                                         Quebec
+                                                         J6V 3A1
+
+     C004              Jamie Lee Curtis                  Wanda Avenue                            25000
+                                                         Welham Green
+                                                         Montreal
+                                                         Quebec
+                                                         H4S 3H2
+
+     C005              Kevin Costner                     Water Way                               50000
+                                                         Wet Street
+                                                         Ottawa
+                                                         Ontario
+                                                         P1D 8D4
+
+     C008              Wyn Chester                       Gun Lane                                35000
+                                                         Sudbury
+                                                         Ontario
+                                                         L3M 9S8
+
+     C020              Penny Cillin                      The Doctors Surgery                     15000
+                                                         Green Park
+                                                         Chibougamau
+                                                         Quebec
+                                                         G1A 1G3
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     D002              Robert De Niro                    The Ring                                10000
+                                                         Madison Square Garden
+                                                         Orleans
+                                                         Ontario
+                                                         P4A 6D8
+
+     D003              Sammy Davis Jnr                   MGM Grand                               30000
+                                                         Rouyn
+                                                         Quebec
+                                                         J5V 2A7
+
+     D014              William Ditt                      Builders, 2 The Lane                    25000
+                                                         Lower Themdown
+                                                         Kenora
+                                                         Ontario
+                                                         N3R 2S7
+
+     D018              Danny De Vito                     Come Quick Taxis                        20000
+                                                         Waskaganish
+                                                         Quebec
+                                                         G1A 6H4
+
+     D025              Nellie Dunn                       Comeback Tommorrow                      15000
+                                                         Neverland
+                                                         Thunder Bay
+                                                         Ontario
+                                                         K3A 7G5
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     F001              Jodie Foster                      The Water Mill                          25000
+                                                         Jack Hill
+                                                         Trois Rivieres
+                                                         Quebec
+                                                         J6V 2A9
+
+     F002              Morgan Freeman                    Bonehurst Road                          18000
+                                                         Redhill
+                                                         Toronto
+                                                         Ontario
+                                                         M1A 7D9
+
+     F003              Douglas Fairbanks J               Universal Studios                       20000
+                                                         Chicoutimi
+                                                         Quebec
+                                                         G2A 1A3
+
+     F010              Polly Filla                       10 The Gap                              10000
+                                                         Bath
+                                                         Sudbury
+                                                         Ontario
+                                                         L3M 9S7
+
+     F053              Harrison Ford                     Rue de Saint Michel                     25000
+                                                         Ottowa
+                                                         Ontario
+                                                         P1D D8
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     F128              M Akem Fixit                      Plumbers House                          10000
+                                                         Mendham
+                                                         Trois Rivieres
+                                                         Quebec
+                                                         J6V 2A8
+
+     F130              Daisy Farmer                      The Old Farmhouse                       10000
+                                                         Lower Field
+                                                         Chibougamau
+                                                         Quebec
+                                                         G4A 3A3
+
+     G001              Clark Gable                       Tara                                    20000
+                                                         Kenora
+                                                         Ontario
+                                                         N3R 2S5
+
+     G010              Bill Gates                        Microcomputers plc                      15000
+                                                         Technology Park
+                                                         Ottawa
+                                                         Ontario
+                                                         P1D 8D7
+
+     G020              P Green                           Painters Lane                           20000
+                                                         11 Wall Street
+                                                         Rouyn
+                                                         Quebec
+                                                         J5V 2A7
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     H002              Bob Hopeful                       Faraway Court                           35000
+                                                         Singapore Road
+                                                         Waskaganish
+                                                         Quebec
+                                                         G1A 6H3
+
+     H003              Tom Hanks                         Sea of Tranquility                      10000
+                                                         Moon Street
+                                                         Trois Rivieres
+                                                         Quebec
+                                                         J6V 2A6
+
+     H014              Hanson Brothers                   The Rink                                20000
+                                                         Ice Hockey Street
+                                                         Thunder Bay
+                                                         Ontario
+                                                         K3A 7G4
+
+     H025              Luke Hair                         Plum in the Mouth Close                 20000
+                                                         The Old Manor
+                                                         Toronto
+                                                         Ontario
+                                                         M1A 7D8
+
+     K002              Nicole Kidman                     Heathfield                               8000
+                                                         Hampstead
+                                                         Orleans
+                                                         Ontario
+                                                         P4A 6D7
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     L020              Miles Long                        Kangeroo Park                           20000
+                                                         Thunder Bay
+                                                         Ontario
+                                                         K3A 7G6
+
+     M001              Robert Mitchum                    The Bull Ring                           15000
+                                                         Chibougamau
+                                                         Quebec
+                                                         G6A 1G3
+
+     M002              Dean Martin                       Any Bar                                 25000
+                                                         Any Place
+                                                         Ottawa
+                                                         Ontario
+                                                         P1D 8D5
+
+     M003              Bill Murray                       Sheet Street                            20000
+                                                         Ghost Town
+                                                         Sudbury
+                                                         Ontario
+                                                         L3M 9S6
+
+     M004              Lee Marvin                        No Name Court                           25000
+                                                         Wandering Star Road
+                                                         Rouyn
+                                                         Quebec
+                                                         J5V 2A6
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     M014              Cary S Matic                      The Style Council                       25000
+                                                         Style House
+                                                         Orleans
+                                                         Ontario
+                                                         P4A 6D6
+
+     M025              A Meadow                          Field Lane                              20000
+                                                         Little Village
+                                                         Chibougamau
+                                                         Quebec
+                                                         G4A 1G3
+
+     M123              1 Moore                           Strangeways                             20000
+                                                         Chicoutimi
+                                                         Quebec
+                                                         G2A 3G3
+
+     M128              Gus Main                          The Pipeworks                           10000
+                                                         Oilcombe
+                                                         Montreal
+                                                         Quebec
+                                                         H2S 3H7
+
+     M130              Maurice Mynah                     Beaulieu Car Museum                     25000
+                                                         Beaulieu
+                                                         Kenora
+                                                         Ontario
+                                                         N3R 2S4
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     N003              Paul Newman                       Charlestown Chiefs                      20000
+                                                         Charlestown
+                                                         Ottawa
+                                                         Ontario
+                                                         P1D 8D3
+
+     N005              K Non                             Church Street                            5000
+                                                         Westminster
+                                                         Orleans
+                                                         Ontario
+                                                         P4A 6D5
+
+     O007              James Bond                        The Hilton Hotel
+                                                         Beach Avenue
+                                                         Trois Rivieres
+                                                         Quebec
+                                                         J6V 2A4
+
+     P001              Michelle Pfeiffer                 The Tower                               10000
+                                                         BatWoman Close
+                                                         Orleans
+                                                         Ontario
+                                                         P4A 6D4
+
+     P002              Richard Pryor                     Colthrop Way                            30000
+                                                         Victoria
+                                                         Toronto
+                                                         Ontario
+                                                         M1A 7D6
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     P004              Jason Patric                      TCR                                     30000
+                                                         Montreal
+                                                         Quebec
+                                                         H2S 3H6
+
+     P005              Al Pacino                         Rue de la Reine                         25000
+                                                         Avenue Charles de Gaulle
+                                                         Chibougamau
+                                                         Quebec
+                                                         G2A 1H3
+
+     P006              Phillippa Pail                    The Old Dairy                            5000
+                                                         Mosley Street
+                                                         Chicoutimi
+                                                         Quebec
+                                                         G2A 1G3
+
+     P007              Mandy Pumps                       The Fire Brigade Building               10000
+                                                         Water Close
+                                                         Kenora
+                                                         Ontario
+                                                         N3R 2S3
+
+     P008              Ern Payed                         Bill Factors Lane                       10000
+                                                         Carnival Street
+                                                         Rouyn
+                                                         Quebec
+                                                         J5V 2A5
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     R001              Julia Roberts                     Broad Street Mall                        8000
+                                                         Hearst
+                                                         Ontario
+                                                         P3A 6D3
+
+     R002              Tim Robbins                       Player Close                            10000
+                                                         Durham Road
+                                                         Toronto
+                                                         Ontario
+                                                         M1A 7D2
+
+     R003              Rene Russo                        The Galleries                           20000
+                                                         Broadmead
+                                                         Trois Rivieres
+                                                         Quebec
+                                                         J6V 2A1
+
+     R005              N Rich                            The Organic Fertiliser Co               25000
+                                                         Compost Lane
+                                                         Sudbury
+                                                         Ontario
+                                                         L3M 9S4
+
+     R007              A Raid                            Castle Street                            5000
+                                                         Montreal
+                                                         Quebec
+                                                         H2S 3H5
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     R010              Winona Ryder                      Roman Way                               25000
+                                                         Coleshill
+                                                         Orleans
+                                                         Ontario
+                                                         P4A 6D3
+
+     R011              John Richmond                     St Georges Walk                         10000
+                                                         Chibougamau
+                                                         Quebec
+                                                         G2A 4G3
+
+     R020              A Round                           The Circle                              15000
+                                                         Stonehenge
+                                                         Waskaganish
+                                                         Quebec
+                                                         G1A 6H2
+
+     R025              G.I. Rate                         Spinning Road                           20000
+                                                         Highgate
+                                                         Kenora
+                                                         Ontario
+                                                         N3R 2S2
+
+     S001              Frank Sinatra                     Broadway                                20000
+                                                         Toronto
+                                                         Ontario
+                                                         M1A 7D1
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     S003              Sylvester Stallone                Rocky Road                               6000
+                                                         The Ring
+                                                         Thunder Bay
+                                                         Ontario
+                                                         K3A 7G3
+
+     S004              Charlie Sheen                     Cromwell Road                           25000
+                                                         Bayswater
+                                                         Ottawa
+                                                         Ontario
+                                                         P1D 8D2
+
+     S010              Truck Stop Ltd                    The Pop In Cafe                         15000
+                                                         Barley Mow Passage
+                                                         Trois Rivieres
+                                                         Quebec
+                                                         J6V 2A2
+
+     S025              O J Simpson                       The Court House                         35000
+                                                         Glove Lane
+                                                         Chibougamau
+                                                         Quebec
+                                                         G2A 7G7
+
+     T001              John Travolta                     Main Street                             20000
+                                                         Richmond
+                                                         Rouyn
+                                                         Quebec
+                                                         J5V 2A4
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     T003              Jackie Tupp                       The Garage                              10000
+                                                         Chokingham
+                                                         Toronto
+                                                         Ontario
+                                                         M1A 7D3
+
+     T004              Dick Tate                         Secretarial Services Ltd                20000
+                                                         Type Road
+                                                         Chicoutimi
+                                                         Quebec
+                                                         G2A 7G4
+
+     T005              Honor Toze                        The Ballet School                        5000
+                                                         Sundance Village
+                                                         Sudbury
+                                                         Ontario
+                                                         L3M 9S2
+
+     T006              Pole Tacks                        2 Much Street                           20000
+                                                         Timmins
+                                                         Ontario
+                                                         P2A 6D1
+
+     T007              Chimps Teaparty                   House of Commons                        10000
+                                                         Westminster
+                                                         Toronto
+                                                         Ontario
+                                                         M1A 7D5
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     T009              Tim Table                         Railways Board                           5000
+                                                         Orleans
+                                                         Ontario
+                                                         P4A 6D3
+
+     T010              Andrew Truffles                   Split Ends                              35000
+                                                         Coles Forest
+                                                         Orleans
+                                                         Ontario
+                                                         P4A 6D1
+
+     T011              Elizabeth Taylor                  Piggott Way                             16000
+                                                         Chicoutimi
+                                                         Quebec
+                                                         G2A 7G5
+
+     U009              Phil M Upp                        The Garage                              25000
+                                                         Chokingham
+                                                         Rouyn
+                                                         Quebec
+                                                         J5V 2A2
+
+     V001              Darth Vader                       1 The Dark Side                         20000
+                                                         Hearst
+                                                         Ontario
+                                                         P3A 6D2
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     W002              Denzil Washington                 Ricochet Tower                          75000
+                                                         Crimson Street
+                                                         Montreal
+                                                         Quebec
+                                                         H2S 3H3
+
+     W004              Sky Ward                          Hot Spots Travel                        13000
+                                                         The Promenade
+                                                         Sudbury
+                                                         Ontario
+                                                         L3M 9S1
+
+     W006              John Wayne                        Green Fields Stables                     5000
+                                                         Horseferry Road
+                                                         Chicoutimi
+                                                         Quebec
+                                                         G2A 7G4
+
+     W009              James Woods                       Digstown                                10000
+                                                         Oliver County
+                                                         Waskaganish
+                                                         Quebec
+                                                         G1A 6H1
+
+     W010              Robin Williams                    The BirdCage                            10000
+                                                         Rouyn
+                                                         Quebec
+                                                         J5V 2A1
+
+
+
+
+
+
+
+
+     Account Number    Name                              Address                          Credit Limit
+
+     W025              World Wide Wait                   Cobweb Park                             20000
+                                                         Http Way
+                                                         Toronto
+                                                         Ontario
+                                                         M1A 7D4
+
+     Z001              Z Inc                             Wall Street                             20000
+                                                         Montreal
+                                                         Quebec
+                                                         H2S 3H1
+

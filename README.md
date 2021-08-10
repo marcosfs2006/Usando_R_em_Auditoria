@@ -6,9 +6,9 @@ Este repositório contém os dados utilizados no conjunto de notebooks denominad
 
 Os notebooks tem por objetivo mostrar como implementar no R algumas técnicas de análise de dados utilizadas em auditoria a algum tempo, como as TAAC (Técnicas de Auditoria Assistidas por Computador) e Regressão Linear, bem como técnicas que mais recentemente vem sendo incluídas na caixa de ferramentas do auditor como Visualização de Dados e Machine Learning. Todo esse conjunto de ferramentas constitui o que vem sendo denominado de **_Audit Data Analytics_**
 
-Com relação aos notebooks, optou-se por utilizar o **Google Colab** para facilitar a utilização dos notebooks pelos usuários. Estes notebooks também se befeficiam dos avanços ocorridos no R em especial o conjunto de pacotes que compõem o que denomina `tidyverse`.
+Com relação aos notebooks, optou-se por utilizar o **Google Colab** para facilitar a utilização dos notebooks pelos usuários. Estes notebooks também se beneficiam dos avanços ocorridos no R em especial o conjunto de pacotes que constitui o `tidyverse`.
 
-Um conjunto anterior de notebooks elaborado utilizando o Jupyter ainda pode ser encontrado no seguinte [link](https://nbviewer.jupyter.org/github/marcosfs2006/Usando-R-em-Auditoria/blob/master/ipynb/usando_r_em_auditoria.ipynb) 
+Um conjunto anterior de notebooks elaborado utilizando o Jupyter ainda pode ser encontrado neste [link](https://nbviewer.jupyter.org/github/marcosfs2006/Usando-R-em-Auditoria/blob/master/ipynb/usando_r_em_auditoria.ipynb) 
 
 
 
